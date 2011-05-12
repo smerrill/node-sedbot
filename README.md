@@ -35,8 +35,18 @@ You will need the following three npm modules installed to run sedbot:
 
 # Running sedbot
 
-To run sedbot, edit sedbot.js to specify the bot name and other IRC
-information. Then, invoke it as any other node program:
+##Environment Variables
+
+The following environment variables can be used, and have the below fallbacks
+if not specified:
+
+    export SEDBOT_SERVER=chat.freenode.net
+    export SEDBOT_CHANNEL='#yourchannel'
+    export SEDBOT_NICK='sedbot'
+    export SEDBOT_SEDBIN=/usr/local/bin/gsed
+
+To run sedbot, optionally export the above env. variables (or just edit
+sedbot.js default options). Then, invoke it as any other node program:
 
     node sedbot.js
 
