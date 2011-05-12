@@ -1,11 +1,12 @@
 var jerk = require('jerk'),
     exec = require('child_process').exec,
-    channel = '#yourchannel',
+    channel = ('SEDBOT_CHANNEL' in process.env)? process.env.SEDBOT_CHANNEL : '#yourchannel',
     last_said = new Array(),
     sed_regexp = /^(s\/.*)$/,
+    sed_binary = process.env.SEDBOT_SEDBIN || '/usr/local/bin/gsed',
     options = {
-      server: 'chat.freenode.net',
-      nick: 'sedbot',
+      server: ('SEDBOT_SERVER' in process.env)? process.env.SEDBOT_SERVER : 'chat.freenode.net',
+      nick: ('SEDBOT_NICK' in process.env)? process.env.SEDBOT_NICK : 'sedbot',
       channels: [channel]
     };
 
@@ -18,8 +19,9 @@ var sed_bot = jerk(function(j) {
         return
       }
       console.log('We got a sed command!');
-      var command = sprintf("echo '%s' | /usr/local/bin/gsed -e '%s'",
+      var command = sprintf("echo '%s' | %s -e '%s'",
         last_said[message.user].replace(/'/g, "'\"'\"'"),
+        sed_binary,
         result[1].replace(/'/g, "'\"'\"'"));
       console.log(command);
       exec(command, function(error, stdout, stderr) {
