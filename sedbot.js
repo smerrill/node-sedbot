@@ -16,8 +16,8 @@ var sed_bot = jerk(function(j) {
     if (result) {
       console.log('We got a sed command!');
       var command = sprintf("echo '%s' | /usr/local/bin/gsed -e '%s'",
-        last_said[message.user].replace("'", "'\"'\"'"),
-        result[1].replace("'", "'\"'\"'"));
+        last_said[message.user].replace(/'/g, "'\"'\"'"),
+        result[1].replace(/'/g, "'\"'\"'"));
       console.log(command);
       exec(command, function(error, stdout, stderr) {
         if (error) {
