@@ -3,7 +3,7 @@ var jerk = require('jerk'),
     channel = ('SEDBOT_CHANNEL' in process.env)? process.env.SEDBOT_CHANNEL : '#yourchannel',
     last_said = new Array(),
     sed_regexp = /^(s\/.*)$/,
-    sed_binary = process.env.SEDBOT_SEDBIN || '/usr/local/bin/gsed',
+    sed_binary = process.env.SEDBOT_SEDBIN || 'sed',
     options = {
       server: ('SEDBOT_SERVER' in process.env)? process.env.SEDBOT_SERVER : 'chat.freenode.net',
       nick: ('SEDBOT_NICK' in process.env)? process.env.SEDBOT_NICK : 'sedbot',
