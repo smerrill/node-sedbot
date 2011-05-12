@@ -1,20 +1,16 @@
 var jerk = require('jerk'),
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    channel = '#yourchannel',
+    last_said = new Array(),
+    sed_regexp = /^(s\/.*)$/,
+    options = {
+      server: 'chat.freenode.net',
+      nick: 'sedbot',
+      channels: [channel]
+    };
 
-var channel = '#yourchannel'
-
-var last_said = new Array();
-
-var sed_regexp = /^(s\/.*)$/
-
-var options =
-  { server: 'chat.freenode.net',
-    nick: 'sedbot',
-    channels: [ channel ]
-  }
-
-var sed_bot = jerk( function( j ) {
-  j.watch_for( /^(.+)$/, function( message ) {
+var sed_bot = jerk(function(j) {
+  j.watch_for( /^(.+)$/, function(message) {
     console.log('Got a message!');
     var result = sed_regexp.exec(message.match_data[1]);
     if (result) {
@@ -40,12 +36,12 @@ var sed_bot = jerk( function( j ) {
       last_said[message.user] = message.match_data[1];
     }
   })
-}).connect( options )
+}).connect(options)
 
 // From http://phpjs.org/functions/sprintf:522
 function sprintf () {
-    // Return a formatted string  
-    // 
+    // Return a formatted string
+    //
     // version: 1103.1210
     // discuss at: http://phpjs.org/functions/sprintf
     // +   original by: Ash Searle (http://hexmen.com/blog/)
@@ -66,7 +62,7 @@ function sprintf () {
     var a = arguments,
         i = 0,
         format = a[i++];
- 
+
     // pad()
     var pad = function (str, len, chr, leftJustify) {
         if (!chr) {
@@ -75,7 +71,7 @@ function sprintf () {
         var padding = (str.length >= len) ? '' : Array(1 + len - str.length >>> 0).join(chr);
         return leftJustify ? str + padding : padding + str;
     };
- 
+
     // justify()
     var justify = function (value, prefix, leftJustify, minWidth, zeroPad, customPadChar) {
         var diff = minWidth - value.length;
@@ -88,7 +84,7 @@ function sprintf () {
         }
         return value;
     };
- 
+
     // formatBaseX()
     var formatBaseX = function (value, base, prefix, leftJustify, minWidth, precision, zeroPad) {
         // Note: casts negative numbers to positive ones
@@ -101,7 +97,7 @@ function sprintf () {
         value = prefix + pad(number.toString(base), precision || 0, '0', false);
         return justify(value, prefix, leftJustify, minWidth, zeroPad);
     };
- 
+
     // formatString()
     var formatString = function (value, leftJustify, minWidth, precision, zeroPad, customPadChar) {
         if (precision != null) {
@@ -109,7 +105,7 @@ function sprintf () {
         }
         return justify(value, '', leftJustify, minWidth, zeroPad, customPadChar);
     };
- 
+
     // doFormat()
     var doFormat = function (substring, valueIndex, flags, minWidth, _, precision, type) {
         var number;
@@ -117,11 +113,11 @@ function sprintf () {
         var method;
         var textTransform;
         var value;
- 
+
         if (substring == '%%') {
             return '%';
         }
- 
+
         // parse flags
         var leftJustify = false,
             positivePrefix = '',
@@ -151,7 +147,7 @@ function sprintf () {
                 break;
             }
         }
- 
+
         // parameters may be null, undefined, empty-string or real valued
         // we want to ignore null, undefined and empty-string values
         if (!minWidth) {
@@ -163,17 +159,17 @@ function sprintf () {
         } else {
             minWidth = +minWidth;
         }
- 
+
         // Note: undocumented perl feature:
         if (minWidth < 0) {
             minWidth = -minWidth;
             leftJustify = true;
         }
- 
+
         if (!isFinite(minWidth)) {
             throw new Error('sprintf: (minimum-)width must be finite');
         }
- 
+
         if (!precision) {
             precision = 'fFeE'.indexOf(type) > -1 ? 6 : (type == 'd') ? 0 : undefined;
         } else if (precision == '*') {
@@ -183,10 +179,10 @@ function sprintf () {
         } else {
             precision = +precision;
         }
- 
+
         // grab value using valueIndex if required?
         value = valueIndex ? a[valueIndex.slice(0, -1)] : a[i++];
- 
+
         switch (type) {
         case 's':
             return formatString(String(value), leftJustify, minWidth, precision, zeroPad, customPadChar);
@@ -224,7 +220,7 @@ function sprintf () {
             return substring;
         }
     };
- 
+
     return format.replace(regex, doFormat);
 }
 
