@@ -1,11 +1,10 @@
 # Important Warning
 
-You will **almost certainly get hacked** if you run this this bot.
-It is not safe to use at the moment and may never be.
+There's a chance that **you will get hacked** if you run this this bot.
 
-The bot does **extremely basic** escaping of single quotes, but
-you could easily break out of them and run arbitrary commands at
-the moment.
+The bot does **a pretty good job** escaping of single quotes, but
+I am not sure that it's impossible to break out of the sed argument
+and run arbitrary commands at the moment.
 
 # About
 
