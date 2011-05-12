@@ -29,8 +29,12 @@ var sed_bot = jerk(function(j) {
         }
         else {
           message.say(sprintf('What %s meant to say was:', message.user));
-          message.say(stdout);
-          last_said[message.user] = stdout;
+          var sanitized_stdout = stdout.replace("\\", "\\\\");
+          message.say(sanitized_stdout);
+          // Put the message back into the last_said array for further sed fun.
+          // Get rid of any newlines that may have creeped in.
+          // @TODO: Kill any control characters?
+          last_said[message.user] = sanitized_stdout;
         }
       });
     }
