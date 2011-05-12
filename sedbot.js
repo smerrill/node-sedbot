@@ -14,6 +14,9 @@ var sed_bot = jerk(function(j) {
     console.log('Got a message!');
     var result = sed_regexp.exec(message.match_data[1]);
     if (result) {
+      if (!last_said[message.user]) {
+        return
+      }
       console.log('We got a sed command!');
       var command = sprintf("echo '%s' | /usr/local/bin/gsed -e '%s'",
         last_said[message.user].replace(/'/g, "'\"'\"'"),
