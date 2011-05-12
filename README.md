@@ -25,3 +25,18 @@ like this with sedbot around:
     sedbot: What smerrill meant to say was:
     sedbot: That was really quite a good demon!
 
+# Requirements
+
+You will need the following three npm modules installed to run sedbot:
+
+- jerk
+- coloured
+- log
+
+# Running sedbot
+
+To run sedbot, edit sedbot.js to specify the bot name and other IRC
+information. Then, invoke it as any other node program:
+
+    node sedbot.js
+
