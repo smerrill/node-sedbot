@@ -25,9 +25,13 @@ var sed_bot = jerk(function(j) {
           message.say("ERROR: " + stderr);
         }
         else {
-          message.say('What ' + message.user + ' meant to say was:');
           // Get rid of any newlines that may have creeped in.
           sanitized_stdout = stdout.split(String.fromCharCode(10))[0];
+          if (sanitized_stdout == null || sanitized_stdout == undefined || sanitized_stdout == '') {
+            message.say('Sorry - that results in nothing left to say. Please try again.')
+            return
+          }
+          message.say('What ' + message.user + ' meant to say was:');
           message.say(sanitized_stdout);
           // Put the message back into the last_said array for further sed fun.
           last_said[message.user] = sanitized_stdout;
