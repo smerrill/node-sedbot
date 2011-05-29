@@ -26,11 +26,10 @@ var sed_bot = jerk(function(j) {
         }
         else {
           message.say('What ' + message.user + ' meant to say was:');
-          var sanitized_stdout = stdout.replace("\\", "\\\\");
+          // Get rid of any newlines that may have creeped in.
+          sanitized_stdout = stdout.split(String.fromCharCode(10))[0];
           message.say(sanitized_stdout);
           // Put the message back into the last_said array for further sed fun.
-          // Get rid of any newlines that may have creeped in.
-          // @TODO: Kill any control characters?
           last_said[message.user] = sanitized_stdout;
         }
       });
