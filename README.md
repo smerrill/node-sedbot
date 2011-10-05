@@ -40,7 +40,7 @@ The following environment variables can be used, and have the below fallbacks
 if not specified:
 
     export SEDBOT_SERVER='chat.freenode.net'
-    export SEDBOT_POPT=6667
+    export SEDBOT_PORT=6667
     export SEDBOT_CHANNEL='#yourchannel'
     export SEDBOT_NICK='sedbot'
     export SEDBOT_SEDBIN='sed'
